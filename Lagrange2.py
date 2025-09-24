@@ -31,7 +31,20 @@ plt.scatter(pointsX, pointsY, marker="*", c="black")
 L1 = lambda x: pointsY[region(x)] * (x - pointsX[region(x)+1]) / (pointsX[region(x)] - pointsX[region(x)+1]) \
                     + pointsY[region(x)+1] * (x - pointsX[region(x)]) / (pointsX[region(x)+1] - pointsX[region(x)])
 
-plt.plot(space, [L1(i) for i in space], c="blue",)
+
+def L2(x):
+    first = min(region(x), 8) # x_i-1
+    second = min(region(x) + 1, 9) # x_i
+    third = min(region(x) + 2, 10) # x_i+1
+
+    return pointsY[first] * (x - pointsX[second])*(x - pointsX[third]) / ((pointsX[first] - pointsX[second])*(pointsX[first] - pointsX[third])) \
+        + pointsY[second] * (x - pointsX[first])*(x - pointsX[third]) / ((pointsX[second] - pointsX[first])*(pointsX[second] - pointsX[third])) \
+        + pointsY[third] * (x - pointsX[first])*(x - pointsX[second]) / ((pointsX[third] - pointsX[first])*(pointsX[third] - pointsX[second]))
+
+
+print(pointsX[0])
+print(pointsX[2])
+plt.plot(space, [L2(i) for i in np.linspace(start, end, 200)], c="blue",)
 
 
 
@@ -45,12 +58,12 @@ plt.plot(space, [L1(i) for i in space], c="blue",)
 
 testPoint = 0.77 # 0.77, 0.52, 0.97, 0.73 - из таблицы 1
 
-minR = 0
-maxR = 3*stepIter
-R = lambda x: abs( L1(x) - func(x) )
+# minR = 0
+# maxR = 3*stepIter
+# R = lambda x: abs( L1(x) - func(x) )
 
-print("Проверка неравенства minR < R < maxR: ", minR < R(testPoint) < maxR)
-print(f"Погрешность <= 10^-4? ", R(testPoint) <= 10**(-4) )
-print(R(testPoint), L1(testPoint), func(testPoint))
+# print("Проверка неравенства minR < R < maxR: ", minR < R(testPoint) < maxR)
+# print(f"Погрешность <= 10^-4? ", R(testPoint) <= 10**(-4) )
+# print(R(testPoint), L1(testPoint), func(testPoint))
 
 plt.show()
