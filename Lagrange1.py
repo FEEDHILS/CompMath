@@ -16,13 +16,13 @@ pointsY = [func(i) for i in pointsX]
 region = lambda x: min(steps-2, int( (x - start) / stepIter )) # Формула для нахождения !!начала кусочка!! в которой лежит переменная
 
 
-# Оригинальная функция
+# График Оригинала
 plt.figure(1)
 plt.plot(space, [func(i) for i in space], c="red", linestyle="dashed",)
 
 
 
-# Сетчатая функция
+# Точки + график интерполяции
 plt.figure(2)
 plt.scatter(pointsX, pointsY, marker="*", c="black")
 
@@ -41,12 +41,12 @@ plt.plot(space, [L1(i) for i in space], c="blue",)
 
 # (x^2 - sin(x))'' = 2 + sin(x) - Данная функция имеет область значений [1; 3]
 # Множитель остаточного члена, w2(x) имеет мин = 0 (в точках на границах области), и макс = h^2, где h - длина области.
-# Поскольку обе скобки в w2 имеют своим максимумом h (если точка на противоположном краю), то (гипотетический) макс. получится h*h = h^2
+# Поскольку обе скобки в w2 имеют своим максимумом h (если точка на противоположном краю), то w2 не превышает h*h = h^2
 
 testPoint = 0.77 # 0.77, 0.52, 0.97, 0.73 - из таблицы 1
 
 minR = 0
-maxR = 3*stepIter
+maxR = (3*stepIter**2)/2
 R = lambda x: abs( L1(x) - func(x) )
 
 print("Проверка неравенства minR < R < maxR: ", minR < R(testPoint) < maxR)
