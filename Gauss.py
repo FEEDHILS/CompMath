@@ -1,15 +1,44 @@
 from utils import *
-from math import factorial as fact
+import math
+
+s = interRes
+
+def GaussBackward(x):
+    mid = math.floor( (points)/2 )
+    result = pointsY[mid]
+    before = 1
+    
+    t = (x - pointsX[mid])/stepIter
+    j = 0
+    for i in range(1, s):
+        if i%2 != 0:
+            mid -= 1
+    
+        before *= ( t + math.floor(i/2)*(-1)**i )
+        result += FDTable[(i, mid)] * before / math.factorial(i)
+
+        if i%2 == 0:
+            j += 1
+
+    return result
 
 
 def GaussForward(x):
-    result = pointsY[0]
+    mid = math.floor( (points)/2 )
+    result = pointsY[mid]
     before = 1
     
-    t = (x - pointsX[0])/stepIter # if x = x_0 + th
-    for i in range(1, steps):
-        before *= (t - (i-1))
-        result += FiniteDiff(i) * before / fact(i)
+    t = (x - pointsX[mid])/stepIter
+    j = 0
+    for i in range(1, s):
+        if i%2 == 0:
+            mid -= 1
 
+        before *= ( t - math.floor(i/2)*(-1)**i )
+        result += FDTable[(i, mid)] * before / math.factorial(i)
+
+        if i%2 == 0:
+            j += 1
+    
     return result
 
