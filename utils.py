@@ -4,7 +4,7 @@ import math
 
 # [Основные Настройки]
 func = lambda x: (np.square(x) - np.sin(x)) 
-steps = 10
+steps = 2
 points = steps+1
 start = 0.5
 end = 1
