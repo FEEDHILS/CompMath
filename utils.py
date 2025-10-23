@@ -4,19 +4,18 @@ import math
 
 # [Основные Настройки]
 func = lambda x: (np.square(x) - np.sin(x)) 
-steps = 2
-points = steps+1
-start = 0.5
-end = 1
+
+stepIter = 1
+points = 4
 interRes = points # Разрешение для интерполяторов
 
-space = np.linspace(start, end, 200) # Качество рисования Оригинала и Интерполяции
-stepIter = (end - start) / (steps) # Длина шага
-pointsX = [start + i*stepIter for i in range(steps+1)]
-pointsY = [func(i) for i in pointsX]
+steps = points-1
+pointsX = list( range(points) )
+pointsY = list( range(16, 20) )
+space = np.linspace(pointsX[0], pointsX[-1], 100) # Качество рисования Оригинала и Интерполяции
 
 # [Вспомогательные функции]
-region = lambda x: min(steps-2, int( (x - start) / stepIter )) # Для нахождения области точки.
+region = lambda x: min(steps-2, int( (x - pointsX[0]) / stepIter )) # Для нахождения области точки.
 
 
 DDTable = {} # Таблица разделенных разностей
