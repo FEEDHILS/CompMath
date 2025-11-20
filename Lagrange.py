@@ -15,14 +15,14 @@ def Lagrange(x):
     return result
 
 x,y = sp.symbols('x y')
-def LagrangeSym():
+def LagrangeSym(points, y, h):
     result = 0
-    for i in range(interRes): # слагаемые
+    for i in range(len(points)): # слагаемые
         result2 = 1
-        for j in range(interRes): # для слагаемых
+        for j in range(len(points)): # для слагаемых
             if (i != j):
-                result2 *= ( x - pointsX[j] ) / ( stepIter*(i-j) )
+                result2 *= ( x - points[j] ) / ( h*(i-j) )
         
-        result += result2 * pointsY[i]
+        result += result2 * y[i]
     
     return result
