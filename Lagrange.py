@@ -1,4 +1,3 @@
-from functions import *
 from math import factorial
 import sympy as sp
 
